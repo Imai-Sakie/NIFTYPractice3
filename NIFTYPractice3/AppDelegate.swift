@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        //ニフティクラウド で取得したアプリケーションとクライアントキーを指定
+        NCMB.setApplicationKey("d5c91b2b57598363d4ceb1491d6cd85af7d7a681a6a8ddcabf45d3a8974e9cfa", clientKey: "d1394f1b266adc0da9b2a05040f715c20ec1e2071a973cfb4c9a80d2df31dff8")
+        
         return true
     }
 
