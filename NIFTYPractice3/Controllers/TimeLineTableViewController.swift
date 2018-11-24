@@ -23,6 +23,14 @@ class TimeLineTableViewController: UITableViewController {
         //セルの登録
         tableView.register(UINib(nibName: "TweetTableViewCell", bundle: nil), forCellReuseIdentifier: "TweetTableViewCell")
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "投稿", style: .plain, target: self, action: #selector(TimeLineTableViewController.post))
+    }
+    
+    @objc func post() {
+        print("投稿ボタンをタップしました")
+    }
 
     // MARK: - Table view data source
 
