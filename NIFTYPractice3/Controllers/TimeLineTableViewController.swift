@@ -10,6 +10,8 @@ import UIKit
 
 class TimeLineTableViewController: UITableViewController {
     @IBOutlet weak var textFiled: UITextField!
+    //TweetManagerクラスのインスタンスを定義
+    let tweetManager = TweetManager.sharedInstance
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,10 @@ class TimeLineTableViewController: UITableViewController {
         
         //セルの登録
         tableView.register(UINib(nibName: "TweetTableViewCell", bundle: nil), forCellReuseIdentifier: "TweetTableViewCell")
+        tweetManager.fetchTweets { () in
+            //callback()まできたらここの処理を実行する
+            self.tableView.reloadData()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,6 +36,8 @@ class TimeLineTableViewController: UITableViewController {
     
     @objc func post() {
         print("投稿ボタンをタップしました")
+        let tweet = Tweet(text: textFiled.text!)
+        tweet.save()
     }
 
     // MARK: - Table view data source
@@ -43,12 +51,15 @@ class TimeLineTableViewController: UITableViewController {
     //セル数
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return tweetManager.tweets.count
     }
     
     //セルの内容
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetTableViewCell", for: indexPath) as! TweetTableViewCell
+        let tweet = tweetManager.tweets[indexPath.row]
+        cell.nameLabel.text = "あいうえお"
+        cell.tweetLabel.text = tweet.text
         return cell
     }
     
