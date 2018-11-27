@@ -18,6 +18,7 @@ class TweetManager: NSObject {
     //ツイートを複数取得するためのメソッド
     func fetchTweets(callback: @escaping () -> Void) {
         let query = NCMBQuery(className: "Tweet")
+        query?.order(byDescending: "createDate")
         //objectsで実際に取得したNCMBObjectの配列が取得される。取得失敗したらerrorで失敗した理由を取得する
         query?.findObjectsInBackground { (objects, error) in
             //取得の処理が成功した時のみ後に続く処理を行う

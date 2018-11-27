@@ -37,7 +37,11 @@ class TimeLineTableViewController: UITableViewController {
     @objc func post() {
         print("投稿ボタンをタップしました")
         let tweet = Tweet(text: textFiled.text!)
-        tweet.save()
+        tweet.save { () in
+            self.tweetManager.fetchTweets { () in
+                self.tableView.reloadData()
+            }
+        }
     }
 
     // MARK: - Table view data source
