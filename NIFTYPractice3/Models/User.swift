@@ -30,5 +30,13 @@ class User: NSObject {
             callback(_ : nserror?.userInfo["NSLocalizedDescription"] as? String)
         }
     }
+    
+    func login(callback: @escaping (_ message: String?) -> Void) {
+        //logInWithUsernameInBackground はニフクラによってログインするためのメソッド
+        NCMBUser.logInWithUsername(inBackground: self.name, password: self.password) { (user, error) in
+            let nserror = error as NSError?
+            callback(_ : nserror?.userInfo["NSLocaoizedDescription"] as? String)
+        }
+    }
 
 }

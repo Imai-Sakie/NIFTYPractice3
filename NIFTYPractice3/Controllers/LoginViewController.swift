@@ -25,6 +25,7 @@ class LoginViewController: UIViewController {
                 self.showAlert(message: unwrappedMessage)
                 print("サインアップ失敗")
             } else {
+                self.dismiss(animated: true, completion: nil)
                 print("サインアップ成功")
             }
         }
@@ -38,6 +39,14 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func tapLoginButton(_ sender: UIButton) {
+        let user = User(name: nameTextField.text!, password: passwordTextField.text!)
+        user.login { (message) in
+            if let unwrappedMessage = message {
+                self.showAlert(message: unwrappedMessage)
+            } else {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     /*
