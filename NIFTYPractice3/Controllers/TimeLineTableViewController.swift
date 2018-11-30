@@ -48,7 +48,7 @@ class TimeLineTableViewController: UITableViewController {
         print("投稿ボタンをタップしました")
         let tweet = Tweet(text: textFiled.text!)
         textFiled.text = ""
-        textFiled.resignFirstResponder()
+//        textFiled.resignFirstResponder()
         tweet.save { () in
             self.tweetManager.fetchTweets { () in
                 self.tableView.reloadData()
