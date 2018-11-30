@@ -32,6 +32,16 @@ class TimeLineTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "投稿", style: .plain, target: self, action: #selector(TimeLineTableViewController.post))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(TimeLineTableViewController.logout))
+    }
+    
+    //viewDidAppear()メソッドはビューが表示された後に処理される。つまり、ビューが表示された後に遷移することになる
+    //viewDidLoad()やviewWillAppear()に記述してもエラーは起きないが、警告が出る。これは、ビューがまだ表示されていない状態で他の画面に背にすることが推奨されていない
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if NCMBUser.current() == nil {      //current()メソッドは。現在ログインしているユーザーを取得するためのもの
+            performSegue(withIdentifier: "modalLoginViewController", sender: self)
+        }
     }
     
     @objc func post() {
@@ -42,6 +52,11 @@ class TimeLineTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         }
+    }
+    
+    @objc func logout() {
+        NCMBUser.logOut()
+        performSegue(withIdentifier: "modalLoginViewController", sender: self)
     }
 
     // MARK: - Table view data source
