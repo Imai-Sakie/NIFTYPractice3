@@ -18,6 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="53c-ms-5Kj">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -31,6 +32,7 @@
                         <connections>
                             <outlet property="dataSource" destination="9ng-ey-bNe" id="6mO-NV-mEP"/>
                             <outlet property="delegate" destination="9ng-ey-bNe" id="TTn-z4-XqA"/>
+                            <outletCollection property="gestureRecognizers" destination="Jcv-4K-fX2" appends="YES" id="RW5-4P-YzY"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="4OQ-KP-ijh">
@@ -49,6 +51,11 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKt-fK-dKO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Jcv-4K-fX2">
+                    <connections>
+                        <action selector="tapGesture:" destination="9ng-ey-bNe" id="wDX-ha-hTJ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="880.79999999999995" y="23.838080959520241"/>
         </scene>

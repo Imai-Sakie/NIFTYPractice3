@@ -47,6 +47,8 @@ class TimeLineTableViewController: UITableViewController {
     @objc func post() {
         print("投稿ボタンをタップしました")
         let tweet = Tweet(text: textFiled.text!)
+        textFiled.text = ""
+        textFiled.resignFirstResponder()
         tweet.save { () in
             self.tweetManager.fetchTweets { () in
                 self.tableView.reloadData()
@@ -77,7 +79,7 @@ class TimeLineTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetTableViewCell", for: indexPath) as! TweetTableViewCell
         let tweet = tweetManager.tweets[indexPath.row]
-        cell.nameLabel.text = "あいうえお"
+        cell.nameLabel.text = tweet.user?.name
         cell.tweetLabel.text = tweet.text
         return cell
     }
@@ -87,6 +89,9 @@ class TimeLineTableViewController: UITableViewController {
         return 75
     }
 
+    @IBAction func tapGesture(_ sender: UITapGestureRecognizer) {
+        textFiled.resignFirstResponder()
+    }
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)

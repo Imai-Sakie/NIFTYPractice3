@@ -11,6 +11,8 @@ import UIKit
 class Tweet: NSObject {
     //ツイートのテキストを保持するためのtextプロパティの設定
     var text: String
+    //TweetがUserをプロパティとして保持している状態になる
+    var user: User?
     
     init(text: String) {
         self.text = text
@@ -21,6 +23,7 @@ class Tweet: NSObject {
         let tweetObject = NCMBObject(className: "Tweet")
         //第一引数に保存したいデータを、第二引数にはそのキーを指定する
         tweetObject?.setObject(text, forKey: "text")
+        tweetObject?.setObject(NCMBUser.current(), forKey: "user")
         //実際にニフクラ上にデータを保存するためのメソッド(非同期通信)
         tweetObject?.saveInBackground { (error) in
             if error == nil {

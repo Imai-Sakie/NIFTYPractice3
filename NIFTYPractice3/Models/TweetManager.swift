@@ -18,6 +18,8 @@ class TweetManager: NSObject {
     //ツイートを複数取得するためのメソッド
     func fetchTweets(callback: @escaping () -> Void) {
         let query = NCMBQuery(className: "Tweet")
+        //includeKey()メソッドは引数に指定したカラムの型がリレーションの場合、その中に格納されているオブジェクトを同時に取得できる
+        query?.includeKey("user")
         query?.order(byDescending: "createDate")
         //objectsで実際に取得したNCMBObjectの配列が取得される。取得失敗したらerrorで失敗した理由を取得する
         query?.findObjectsInBackground { (objects, error) in
@@ -29,6 +31,10 @@ class TweetManager: NSObject {
                     //保存時に設定したキー(text)をobjectメソッドの引数に指定することで値を取得できる
                     let text = (object as AnyObject).object(forKey: "text") as! String
                     let tweet = Tweet(text: text)
+                    let userObject = (object as AnyObject).object(forKey: "user") as! NCMBUser
+                    print(userObject.userName!)
+                    let user = User(name: userObject.userName!, password: "")
+                    tweet.user = user
                     self.tweets.append(tweet)
                     //取得したツイートが配列に追加された後にコールバックを呼ぶ
                     callback()
